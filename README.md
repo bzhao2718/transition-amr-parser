@@ -29,34 +29,28 @@ touch set_environment.sh
 . set_environment.sh
 ```
 
-Then use either `conda` or `pip` to install. For `conda` do
-
-```
-conda env update -f scripts/stack-transformer/environment.yml
-pip install spacy==2.2.3 smatch==1.0.4 ipdb
-```
-
-For `pip` only do (ignore if you use the ones above)
+Then for `pip` only install do
 
 ```
 pip install -r scripts/stack-transformer/requirements.txt
-```
-
-Then download and patch fairseq using
-
-```
 bash scripts/download_and_patch_fairseq.sh
-```
-
-Finally install fairseq without dependencies (installed above) and this repo.
-The `--editable` flag allows to modify the code without the need to reinstall.
-
-```
 pip install --no-deps --editable fairseq-stack-transformer-v0.3.3
 pip install --editable .
 ```
 
-The spacy tools will be updated on first use. You can force this manually with 
+Alternatively for a `conda` install do
+
+```
+conda env update -f scripts/stack-transformer/environment.yml
+pip install spacy==2.2.3 smatch==1.0.4 ipdb
+bash scripts/download_and_patch_fairseq.sh
+pip install --no-deps --editable fairseq-stack-transformer-v0.3.3
+pip install --editable .
+```
+
+This code will download and patch fairseq before installing. The `--editable`
+flag allows to modify the code without the need to reinstall. The spacy tools
+will be updated on first use. You can force this manually with 
 
 ```bash
 python -m spacy download en
@@ -65,6 +59,7 @@ python -m spacy download en
 To check if install worked do
 
 ```bash
+. set_environment.sh
 python tests/correctly_installed.py
 ```
 
