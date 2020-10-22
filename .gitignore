@@ -1,7 +1,4 @@
 # These should not be commited
-# old version
-scripts/local_variables.sh
-# new version
 set_environment.sh
 
 # compressed formats
@@ -14,11 +11,14 @@ set_environment.sh
 # data
 DATA*
 
+#
+preprocess/jamr
+preprocess/kevin
+
 # external tools
 smatch*
 amr-evaluation/
-pytorch_scatter*
-fairseq/
+fairseq-*
 
 # virtual environments
 .python-version

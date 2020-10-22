@@ -1,6 +1,6 @@
 # Set variables and environment for a give experiment
 #
-# Variables intended to be used outside of this script are CAPITALIZED
+# Variables intended to be use outside of this script are CAPITALIZED
 #
 set -o errexit
 set -o pipefail
@@ -11,14 +11,14 @@ TASK_TAG=AMR
 # All data stored here
 data_root=DATA/$TASK_TAG/
 
-LDC2014_AMR_CORPUS=$data_root/AMR_1.0/
+LDC2014_AMR_CORPUS=$data_root/corpora/amr1.0/
 
 # AMR ORACLE
 # See transition_amr_parser/data_oracle.py:argument_parser
 # NOTE: LDC2016_AMR_CORPUS should be defined in set_envinroment.sh
-AMR_TRAIN_FILE=$LDC2014_AMR_CORPUS/AMR_1.0_train_jkaln_pseudo.txt
-AMR_DEV_FILE=$LDC2014_AMR_CORPUS/AMR_1.0_dev_jaln.txt
-AMR_TEST_FILE=$LDC2014_AMR_CORPUS/AMR_1.0_test_jaln.txt
+AMR_TRAIN_FILE=$LDC2014_AMR_CORPUS/train.no_wiki.aligned.txt
+AMR_DEV_FILE=$LDC2014_AMR_CORPUS/dev.no_wiki.aligned.txt 
+AMR_TEST_FILE=$LDC2014_AMR_CORPUS/test.no_wiki.aligned.txt
 # WIKI files
 # NOTE: If left empty no wiki will be added
 WIKI_DEV=""
@@ -43,7 +43,7 @@ ORACLE_TRAIN_ARGS="
     --copy-lemma-action
 "
 ORACLE_DEV_ARGS="
-    --in-multitask-words $ORACLE_FOLDER/train.multitask_words \
+    --in-multitask-words $ORACLE_FOLDER/train.multitask_words 
     --copy-lemma-action
 "
 

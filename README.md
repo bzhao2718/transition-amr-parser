@@ -7,61 +7,83 @@ Transition-based parser for Abstract Meaning Representation (AMR) in Pytorch. Th
 
 2. Two structured sequence-to-sequence models able to encode the parser state. This includes stack-LSTM [(Dyer et al)](https://arxiv.org/pdf/1505.08075.pdf) and the stack-Transformer [(Fernandez Astudillo et al 2020)](https://openreview.net/pdf?id=b36spsuUAde). 
 
-Current version is `0.3.2`. Initial commit developed by Miguel Ballesteros and Austin Blodgett while at IBM. 
+Current version is `0.3.3rc`. Initial commit developed by Miguel Ballesteros and Austin Blodgett while at IBM.
 
 ## Manual Installation
 
-The code has been tested on Python `3.6`. We use a script to activate
+Clone the repository
+
+```bash
+git clone git@github.ibm.com:mnlp/transition-amr-parser.git
+cd transition-amr-parser
+```
+
+The code has been tested on Python `3.6.9`. We use a script to activate
 conda/pyenv and virtual environments. If you prefer to handle this yourself
-just create an empty file (the scripts will assume it exists in any case)
+just create an empty file (the training scripts will assume it exists in any
+case).
 
 ```bash
 touch set_environment.sh
-```
-
-then patch and install fairseq
-
-```
+# inside: your source venv/bin/activate or conda activate ./cenv
 . set_environment.sh
-git clone https://github.com/pytorch/fairseq.git
-cd fairseq
-git checkout -b stack-transformer-v0.3.2 a33ac06 
-git apply ../transition_amr_parser/stack_transformer/fairseq_a33ac06.patch
-pip install .
-cd ..
 ```
 
-the install the main repo
-
-```bash
-git clone https://github.com/IBM/transition-amr-parser.git
-cd transition-amr-parser
-git checkout v0.3.2
-pip install .
-cd ..
-```
-
-as well as the smatch evaluation tool.
+Then use either `conda` or `pip` to install. For `conda` do
 
 ```
-git clone https://github.com/snowblink14/smatch.git 
-cd smatch
-git checkout v1.0.4
-pip install .
-cd ..
+conda env update -f scripts/stack-transformer/environment.yml
+pip install spacy==2.2.3 smatch==1.0.4 ipdb
 ```
 
-The spacy tools will be updated on first use. To do this manually do
+For `pip` only do (ignore if you use the ones above)
+
+```
+pip install -r scripts/stack-transformer/requirements.txt
+```
+
+Then download and patch fairseq using
+
+```
+bash scripts/download_and_patch_fairseq.sh
+```
+
+Finally install fairseq without dependencies (installed above) and this repo.
+The `--editable` flag allows to modify the code without the need to reinstall.
+
+```
+pip install --no-deps --editable fairseq-stack-transformer-v0.3.3
+pip install --editable .
+```
+
+The spacy tools will be updated on first use. You can force this manually with 
 
 ```bash
 python -m spacy download en
 ```
 
-You can check if it worked using
+To check if install worked do
 
 ```bash
 python tests/correctly_installed.py
 ```
+
+If you are installing in PowerPCs, you will have to use the conda option. Also
+spacy has to be installed with conda instead of pip (2.2.3 version will not be
+available, which affects the lematizer behaviour)
+
+## Training a model
+
+You first need to preprocess and align the data. See `preprocess/README.md`. 
+
+Then just call a config to carry a desired experiment
+
+```bash
+bash scripts/stack-transformer/experiment.sh scripts/stack-transformer/configs/amr2_o5+Word100_roberta.large.top24_stnp6x6.sh
+```
+
+Note that there is cluster version of this script, currently only supporting
+LSF but easily adaptable.
 
 ## Decode with Pre-trained model
 
