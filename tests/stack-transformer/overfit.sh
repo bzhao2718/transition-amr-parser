@@ -64,11 +64,6 @@ fairseq-preprocess \
 # TRAINING
 rm -Rf DATA.tests/models/$experiment_tag/
 model_arch=stack_transformer_6x6_nopos 
-#model_arch=stack_transformer_6x6_top_nopos 
-#model_arch=stack_transformer_6x6_tops_nopos 
-#model_arch=stack_transformer_6x6_topb_nopos 
-#model_arch=stack_transformer_6x6_only_buffer_nopos 
-#model_arch=stack_transformer_6x6_only_stack_nopos 
 fairseq-train \
     $FEATURES_FOLDER \
     --max-epoch $max_epoch \
@@ -127,7 +122,7 @@ smatch.py \
 
 cat $RESULTS_FOLDER/valid.smatch
 
-if [ "$(cat $RESULTS_FOLDER/valid.smatch)" != "F-score: 0.1865" ];then 
+if [ "$(cat $RESULTS_FOLDER/valid.smatch)" != "F-score: 0.1866" ];then 
         echo -e "[\033[91mFAILED\033[0m] overfitting test"
         exit 1
 else
