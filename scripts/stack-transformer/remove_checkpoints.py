@@ -90,16 +90,7 @@ if __name__ == '__main__':
             else:
                 print(f'Saved {model_folder}/{checkpoint}')
 
-        # sanity check, there should be 3 models to save
-        sanity_checkpoints_to_save = []
-        for checkpoint in glob(f'{model_folder}/checkpoint*.pt'):
-            cp_basename = os.path.basename(checkpoint)
-            if cp_basename in checkpoints_to_save:
-                sanity_checkpoints_to_save.append(cp_basename)
-        if len(sanity_checkpoints_to_save) < 3:
-            print(
-                f"Expected at least 3 models to save, skipping {model_folder}"
-            )
+        if len(checkpoints_to_save) < 3:
             # no best links found, better not delete anything
             continue
 
