@@ -7,7 +7,7 @@ Transition-based parser for Abstract Meaning Representation (AMR) in Pytorch. Th
 
 2. The stack-Transformer [(Fernandez Astudillo et al 2020)](https://openreview.net/pdf?id=b36spsuUAde). A sequence to sequence model that also encodes stack and buffer state of the parser into its attention heads.
 
-Current version is `0.3.3`. Aside from listed collaborators, the initial commit was developed by Miguel Ballesteros and Austin Blodgett while at IBM.
+Current version is `0.3.3` and yields `80.5` Smatch on the AMR2.0 test-set using the default stack-Transformer configuration. Aside from listed [contributors](https://github.com/IBM/transition-amr-parser/graphs/contributors), the initial commit was developed by Miguel Ballesteros and Austin Blodgett while at IBM.
 
 ## Manual Installation
 
