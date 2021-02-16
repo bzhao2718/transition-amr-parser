@@ -12,20 +12,28 @@ config=$1
 
 # stage-1: Preprocess
 
-# ORACLE
+# NORMALIZE AND ALIGN DATA (AMR only)
+if [ "$TASK_TAG" == "AMR" ] && \
+   [ ! -f "$CORPUS_FOLDER/train.no_wiki.aligned.txt" ];then
+
+    bash preprocess/normalize_and_align.sh $LDC_CORPUS
+
+fi
+
+# CREATE ORACLE DATA
 [ ! -d $ORACLE_FOLDER ] && mkdir -p $ORACLE_FOLDER
-
-
-# Create oracle data
 if [ "$TASK_TAG" == "dep-parsing" ];then
 
     # nothing to do since the oracle is given, just copy it locally
     echo "cp $PTB_ORACLE/$ORACLE_TAG/* $ORACLE_FOLDER"
     cp $PTB_ORACLE/$ORACLE_TAG/* $ORACLE_FOLDER
     chmod u+w -R $ORACLE_FOLDER
+    # dummy, will not be used
+    entity_rules=""
 
 elif [ "$TASK_TAG" == "AMR" ];then
 
+    # FIXME: See end of the file. This can be reduced to a single if exists
     # Use custom entity rules or create them
     if [ -n "${ENTITY_RULES:-}" ] && [ "${ENTITY_RULES}" != "" ]; then
         entity_rules=$ENTITY_RULES
@@ -122,7 +130,12 @@ else
     echo -e "Unknown task $TASK"
 fi
 
-# PREPROCESSING
-# extract data
+# FEATURE EXTRACTION
 echo "fairseq-preprocess $FAIRSEQ_PREPROCESS_ARGS"
-fairseq-preprocess --entity-rules $entity_rules $FAIRSEQ_PREPROCESS_ARGS
+
+# FIXME: Hotfix. We need to specify this flag on the configs
+if [ "$TASK_TAG" == "AMR" ];then
+    fairseq-preprocess --entity-rules $entity_rules $FAIRSEQ_PREPROCESS_ARGS
+else    
+    fairseq-preprocess $FAIRSEQ_PREPROCESS_ARGS
+fi
