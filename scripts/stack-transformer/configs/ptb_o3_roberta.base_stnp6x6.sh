@@ -6,13 +6,13 @@ set -o errexit
 set -o pipefail
 set -o nounset
 
-# All data stored here
-data_root=DATA/$TASK_TAG/
+# Oracles are precomputed ans stored here
+PTB_ORACLE=/dccstor/ykt-parse/SHARED/MODELS/dep-parsing/transition-amr-parser/oracles/
 
 TASK_TAG=dep-parsing
 
-# Oracles are precomputed ans stored here
-PTB_ORACLE=$data_root/corpora/ptb/
+# All data stored here
+data_root=DATA/$TASK_TAG/
 
 # Dependency-parsing oracle
 # NOTE: This is precomputed
