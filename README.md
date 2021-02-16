@@ -5,7 +5,7 @@ Transition-based parser for Abstract Meaning Representation (AMR) in Pytorch. Th
 
 1. A State machine and oracle transforming the sequence-to-graph task into a sequence-to-sequence problem. This follows the AMR oracles in [(Ballesteros and Al-Onaizan 2017)](https://arxiv.org/abs/1707.07755v1) with improvements from [(Naseem et al 2019)](https://arxiv.org/abs/1905.13370) and [(Fernandez Astudillo et al 2020)](https://openreview.net/pdf?id=b36spsuUAde)
 
-2. The stack-Transformer [(Fernandez Astudillo et al 2020)](https://openreview.net/pdf?id=b36spsuUAde). A sequence to sequence model that also encodes stack and buffer state of the parser into its attention heads.
+2. The stack-Transformer [(Fernandez Astudillo et al 2020)](https://arxiv.org/abs/2010.10669). A sequence to sequence model that also encodes stack and buffer state of the parser into its attention heads. It is also used in our works in self-learning [(Lee et al 2020)](https://arxiv.org/abs/2010.10673) and multi-linguality [(Sheth et al 2021)](https://arxiv.org/abs/2102.02189) in AMR.
 
 Current version is `0.3.3` and yields `80.5` Smatch on the AMR2.0 test-set using the default stack-Transformer configuration. Aside from listed [contributors](https://github.com/IBM/transition-amr-parser/graphs/contributors), the initial commit was developed by Miguel Ballesteros and Austin Blodgett while at IBM.
 
