@@ -90,6 +90,12 @@ The same for AMR1.0
 python preprocess/merge_files.py /path/to/LDC2014T12/data/amrs/split/ DATA/AMR/corpora/amr1.0/
 ```
 
+You will also need to unzip the precomputed BLINK cache
+
+```
+unzip linkcache.zip
+```
+
 Then just call a config to carry a desired experiment
 
 ```bash
